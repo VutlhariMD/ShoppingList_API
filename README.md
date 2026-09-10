@@ -46,6 +46,7 @@ http://localhost:3000
 
 ------------------------------------------------------------------------------
 ## Testing with Postman
+NB : Click the picture to open is not visible
 Example requests: 
 
 POST/PUT     http://localhost:5000/items
