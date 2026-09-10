@@ -68,7 +68,11 @@ request.on( 'data', (chunk) => {
         response.writeHead(400, {"content-type" : "application-type"});
         response.end(JSON.stringify({error: "Quntity of items is required"}));
     }
-    
+     if(!data.category ||  typeof data.category !== "string"){
+        response.writeHead(400, {"content-type" : "application-type"});
+        response.end(JSON.stringify({error: "Item category is required"}));
+    }
+
 
  }catch(error){
 
