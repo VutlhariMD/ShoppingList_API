@@ -24,11 +24,6 @@ if(request.method === 'GET' && !id){
 
 if (request.method ==='GET'  && id){
 
-    /*const item =getItem(id);
-    response.writeHead(200,{"content-type": "application/json"});
-    response.end(item);*/
-
-
     if(isNaN(id)){
         response.writeHead(400,{"content-type" : "application/json"});
         response.end(JSON.stringify({error : "Invalid song id"}));
@@ -37,10 +32,14 @@ if (request.method ==='GET'  && id){
     const item = getItem(id);
     if(!item){
         response.writeHead(404, {"content-type" : "application/json"});
-        response.end(JSON.stringify({error: "Song not found"}))
+        response.end(JSON.stringify({error: "Song not found"}));
+        return;
+    }
+    response.writeHead(200, {"content-type" : "application/json"});
+    response.end(JSON.stringify(item));
+    return;
 
     }
-    
 
 
 
@@ -57,10 +56,11 @@ request.on( 'data', (chunk) => {
  const {itemName ,description, quantity, category} = JSON.parse(body);
  const newitem = addItem(itemName,description,quantity,category);
  response.writeHead(201, {"content-type" : "application-type"})
- response.end(JSON.stringify(newitem))
- }) 
+ response.end(JSON.stringify(newitem))}) 
  return;
 }
+
+
 
 if(request.method ==='DELETE' && id){
     deleteItem(id);
