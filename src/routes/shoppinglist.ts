@@ -1,12 +1,12 @@
 import { IncomingMessage,ServerResponse } from "http";
 import {addItem, getAllItems,getItem,deleteItem, updateItem} from '../controllers/shoppinglist.js'
-import { buffer } from "stream/consumers";
+
 
 
 
 export const listRoute = async (request : IncomingMessage, response: ServerResponse) => {
     //Splitting the  Route
-if(request.url?.startsWith("/shoppingList")){
+if(request.url?.startsWith("/ItemList")){
     console.log(request.url, 'request url');
 
     const parts = request.url.split('/')
@@ -20,11 +20,29 @@ if(request.method === 'GET' && !id){
     response.end(JSON.stringify(getAllItems()));
 }
 
+
+
 if (request.method ==='GET'  && id){
 
-    const item =getItem(id);
+    /*const item =getItem(id);
     response.writeHead(200,{"content-type": "application/json"});
-    response.end(item);
+    response.end(item);*/
+
+
+    if(isNaN(id)){
+        response.writeHead(400,{"content-type" : "application/json"});
+        response.end(JSON.stringify({error : "Invalid song id"}));
+        return;
+    }
+    const item = getItem(id);
+    if(!item){
+        response.writeHead(404, {"content-type" : "application/json"});
+        response.end(JSON.stringify({error: "Song not found"}))
+
+    }
+    
+
+
 
 }
 if(request.method === 'POST'){
