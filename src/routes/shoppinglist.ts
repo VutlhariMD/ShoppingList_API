@@ -1,5 +1,6 @@
 import { IncomingMessage,ServerResponse } from "http";
 import {addItem, getAllItems,getItem,deleteItem, updateItem} from '../controllers/shoppinglist.js'
+import { title } from "process";
 
 
 
@@ -23,29 +24,27 @@ if(request.method === 'GET' && !id){
 
 
 if (request.method ==='GET'  && id){
-
+     // Return an error if the id  provided is not a number
     if(isNaN(id)){
         response.writeHead(400,{"content-type" : "application/json"});
         response.end(JSON.stringify({error : "Invalid song id"}));
         return;
     }
     const item = getItem(id);
+
+    //Return an error if the  the are no items  found for the specific id you are looking for
     if(!item){
         response.writeHead(404, {"content-type" : "application/json"});
         response.end(JSON.stringify({error: "Song not found"}));
         return;
     }
+    //Return the song for the specified ID   if no errors are found.
     response.writeHead(200, {"content-type" : "application/json"});
     response.end(JSON.stringify(item));
     return;
-
-    }
-
-
-
 }
-if(request.method === 'POST'){
 
+if(request.method === 'POST'){
     //a container to store incoming data
 let body = "";
 request.on( 'data', (chunk) => {
@@ -53,14 +52,54 @@ request.on( 'data', (chunk) => {
 
  request.on ('end', () => {
 
- const {itemName ,description, quantity, category} = JSON.parse(body);
+ /*const {itemName ,description, quantity, category} = JSON.parse(body);
  const newitem = addItem(itemName,description,quantity,category);
  response.writeHead(201, {"content-type" : "application-type"})
- response.end(JSON.stringify(newitem))}) 
- return;
+ response.end(JSON.stringify(newitem))}
+ */
+ try{
+
+    const data= JSON.parse(body);
+    if(!data.itemName ||  typeof title !== "string"){
+        response.writeHead(400, {"content-type" : "application-type"});
+        response.end(JSON.stringify({error: "Item name is required"}));
+    }
+
+ }catch(error){
+
+
+ }
+
+
+
+
+
+
+
+
+ }) 
+ return
+
+
+
+
+
+
+
 }
 
 
+
+
+
+
+
+
+
+
+
+
+/*
 
 if(request.method ==='DELETE' && id){
     deleteItem(id);
@@ -89,4 +128,4 @@ if( request.method ==='PATCH' && id){
           response.writeHead(200,{"content-type": "application/json"})
           response.end(JSON.stringify(updateItem));
         })}
-}}
+}}*/}}
