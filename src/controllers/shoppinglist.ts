@@ -26,7 +26,7 @@ export const deleteItem =(id: number) : shoppingList[]=>{
     ItemList = ItemList.filter((ItemList) => ItemList.id!== id);
     return ItemList;
 }
-
+// uUpdate an item
 export const updateItem = (id: number, itemName: string, description: string, quantity: number, category: string) : shoppingList| undefined => {
     const item = ItemList.find((item) => item.id === id);
     if(item){
