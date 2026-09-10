@@ -13,7 +13,7 @@ export const listRoute = async (
     response: ServerResponse,
 ) => {
     //Splitting the  Route
-    if (request.url?.startsWith("/ItemList")) {
+    if (request.url?.startsWith("/items")) {
         console.log(request.url, "request url");
 
         const parts = request.url.split("/");
@@ -71,7 +71,7 @@ export const listRoute = async (
                         });
                         response.end(
                             JSON.stringify({
-                                error: "Quntity of items is required",
+                                error: "Quantity of items is required",
                             }),
                         );
                     }

@@ -2,11 +2,11 @@ import http ,{IncomingMessage, ServerResponse} from 'http'
 import {listRoute} from '../src/routes/shoppinglist.js'
 
 
-const PORT= 4000;
+const PORT= 5000;
 
 const requestListener=( request: IncomingMessage, response: ServerResponse) => {
 
-    if(request.url?.startsWith("/ItemList")){
+    if(request.url?.startsWith("/items")){
         listRoute(request,response);
     }
     else{
@@ -16,4 +16,4 @@ const requestListener=( request: IncomingMessage, response: ServerResponse) => {
 }
 
  const server = http.createServer(requestListener);
- server.listen(PORT, () => {console.log(`Server is running on http://localhost: ${PORT}`)})
+ server.listen(PORT, () => {console.log(`Server is running on http://localhost:${PORT}`)})

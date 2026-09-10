@@ -1,34 +1,35 @@
 import type { shoppingList} from "../types/shoppinglist.js";
 
-let ItemList:  shoppingList [] = [];
+let items:  shoppingList[] = [];
 let currentId =1 ;
 //Add an item in list 
+
+//Retrieve all the items form the List
+export const getAllItems =() : shoppingList[] => {
+return items;
+}
 
 export const addItem= (itemName: string, description : string, quantity: number, category: string)=>{
 
   const  newItem : shoppingList = {id : currentId++, itemName,description,quantity,category}
-   ItemList.push(newItem)
+   items.push(newItem)
    return newItem
 }
 
-//Retrieve all the items form the List
-export const getAllItems =() : shoppingList[] => {
-return ItemList;
-}
 //Get a single item by id
 export const getItem = (id: number) : shoppingList | undefined =>{ 
-     const item = ItemList.find((item) => item.id=== id)
+     const item = items.find((item) => item.id=== id)
      return item;
 }
 //Delete an item 
 export const deleteItem =(id: number) : shoppingList[]=>{
 
-    ItemList = ItemList.filter((ItemList) => ItemList.id!== id);
-    return ItemList;
+    items = items.filter((ItemList) => ItemList.id!== id);
+    return items;
 }
 // uUpdate an item
 export const updateItem = (id: number, itemName: string, description: string, quantity: number, category: string) : shoppingList| undefined => {
-    const item = ItemList.find((item) => item.id === id);
+    const item = items.find((item) => item.id === id);
     if(item){
         item.itemName=itemName;
         item.description=description;

@@ -1,5 +1,5 @@
 export interface shoppingList{ 
-    id: number | undefined,
+    id: number,
     itemName : string,
     description: string,
     quantity: number,
