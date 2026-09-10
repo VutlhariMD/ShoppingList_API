@@ -60,10 +60,15 @@ request.on( 'data', (chunk) => {
  try{
 
     const data= JSON.parse(body);
-    if(!data.itemName ||  typeof title !== "string"){
+    if(!data.itemName ||  typeof data.itemName !== "string"){
         response.writeHead(400, {"content-type" : "application-type"});
         response.end(JSON.stringify({error: "Item name is required"}));
     }
+    if(!data.quantity ||  typeof data.quantity !== "number"){
+        response.writeHead(400, {"content-type" : "application-type"});
+        response.end(JSON.stringify({error: "Quntity of items is required"}));
+    }
+    
 
  }catch(error){
 
